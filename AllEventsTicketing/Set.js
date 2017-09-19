@@ -1,5 +1,12 @@
+/*eslint-env browser*/
+/*eslint no-unused-vars: 1*/
+
 function Set() {
     this.intersection = function (listA, listB) {
+
+        if (listA == null || listB == null) {
+            return null;
+        }
 
         var resultList = [];
 
@@ -18,6 +25,10 @@ function Set() {
 
     this.union = function (listA, listB) {
 
+        if (listA == null || listB == null) {
+            return null;
+        }
+
         var resultList = [];
 
         /*------------------------------- My code here -------------------------------------*/
@@ -34,6 +45,10 @@ function Set() {
 
     this.relativeComplement = function (listA, listB) {
 
+        if (listA == null || listB == null) {
+            return null;
+        }
+
         var resultList = [];
 
         /*------------------------------- My code here -------------------------------------*/
@@ -47,6 +62,10 @@ function Set() {
     }
 
     this.symmetricDifference = function (listA, listB) {
+
+        if (listA == null || listB == null) {
+            return null;
+        }
 
         var resultList = [];
 
