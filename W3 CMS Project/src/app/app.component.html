@@ -1,8 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-header (sectionSelected)="onNavigate($event)"></app-header>
-<div style="text-align:center">
-</div>
+<app-header (sectionSelected)="switchView($event)"></app-header>
+<div class="container">
 
-<!--<app-contacts></app-contacts>-->
-<!--<app-documents></app-documents>-->
-<app-messages></app-messages>
+   <app-contacts *ngIf="selectedSection === 'Contacts'"></app-contacts>
+   <app-documents *ngIf="selectedSection === 'Documents'"></app-documents>
+   <app-messages *ngIf="selectedSection === 'Messages'"></app-messages>
+</div>

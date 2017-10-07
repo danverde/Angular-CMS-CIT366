@@ -6,7 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-   switchView(selectedSection: string){
-      
+   selectedSection = 'Contacts';
+   switchView(section: string){
+      this.selectedSection = section;
    }
 }
