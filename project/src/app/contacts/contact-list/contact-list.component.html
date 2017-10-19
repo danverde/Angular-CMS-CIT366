@@ -6,9 +6,9 @@
     <div class="panel-body">
         <ul class="list-group">
             <app-contact-item 
-                *ngFor="let contactEL of contactList"
-                [contact]="contactEL" 
-                (contactSelected)="onContactSelected(contactEL)"></app-contact-item>
+                *ngFor="let contact of contacts"
+                [contact]="contact" 
+                (contactSelected)="onContactSelected(contact)"></app-contact-item>
         </ul>
     </div>
 </div>
