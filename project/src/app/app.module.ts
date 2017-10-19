@@ -13,6 +13,7 @@ import { DocumentsComponent } from './documents/documents.component';
 import { DocumentListComponent } from './documents/document-list/document-list.component';
 import { DocumentItemComponent } from './documents/document-list/document-item/document-item.component';
 import { DocumentDetailComponent } from './documents/document-detail/document-detail.component';
+import { DocumentService } from './documents/document.service';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageListComponent } from './messages/message-list/message-list.component';
 import { MessageItemComponent } from './messages/message-item/message-item.component';
@@ -42,7 +43,7 @@ import { DropdownDirective } from './directives/dropdown.directive';
     BrowserModule,
     FormsModule
   ],
-  providers: [ContactService],
+  providers: [ContactService, DocumentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

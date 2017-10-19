@@ -1,20 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Document } from './document.model';
 import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 
-@Component({
-  selector: 'app-documents',
-  templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.css']
-})
-export class DocumentsComponent implements OnInit {
-   documents: Document[];
-
+@Injectable()
+export class DocumentService {
+   documents: Document[] = [];
    constructor() {
       this.documents = MOCKDOCUMENTS;
-   }
-
-   ngOnInit() {
    }
 
    getDocuments() {
