@@ -11,7 +11,7 @@ import { ContactItemComponent } from './contacts/contact-item/contact-item.compo
 import { ContactService } from './contacts/contact.service';
 import { DocumentsComponent } from './documents/documents.component';
 import { DocumentListComponent } from './documents/document-list/document-list.component';
-import { DocumentItemComponent } from './documents/document-list/document-item/document-item.component';
+import { DocumentItemComponent } from './documents/document-item/document-item.component';
 import { DocumentDetailComponent } from './documents/document-detail/document-detail.component';
 import { DocumentService } from './documents/document.service';
 import { MessagesComponent } from './messages/messages.component';
