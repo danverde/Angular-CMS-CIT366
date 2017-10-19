@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Document } from './document.model';
-import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
+import { DocumentService } from './document.service';
 
 @Component({
   selector: 'app-documents',
@@ -8,25 +8,14 @@ import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
   styleUrls: ['./documents.component.css']
 })
 export class DocumentsComponent implements OnInit {
-   documents: Document[];
+   selectedDocument: Document;
 
-   constructor() {
-      this.documents = MOCKDOCUMENTS;
+   constructor(private documentService: DocumentService) {
    }
 
    ngOnInit() {
-   }
-
-   getDocuments() {
-      return this.documents.slice();
-   }
-
-   getDocument(id: string) {
-      this.documents.forEach((doc) => {
-         if (doc.id === id) {
-            return doc;
-         }
-      });
-      return null;
+      this.documentService.documentSelectedEvent.subscribe((document: Document) => {
+         this.selectedDocument = document;
+      })
    }
 }
