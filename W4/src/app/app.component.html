@@ -1,8 +1,0 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<app-header (sectionSelected)="switchView($event)"></app-header>
-<div class="container">
-
-   <app-contacts *ngIf="selectedSection === 'Contacts'"></app-contacts>
-   <app-documents *ngIf="selectedSection === 'Documents'"></app-documents>
-   <app-messages *ngIf="selectedSection === 'Messages'"></app-messages>
-</div>
