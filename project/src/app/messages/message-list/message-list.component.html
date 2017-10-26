@@ -1,0 +1,8 @@
+<div class="panel-body">
+   <ul class="list-group">
+      <app-message-item *ngFor="let message of messages" [message]='message'></app-message-item>
+   </ul>
+</div>
+<div class="panel-footer">
+   <app-message-edit (messageSent)="onAddMessage($event)"></app-message-edit>
+</div>
