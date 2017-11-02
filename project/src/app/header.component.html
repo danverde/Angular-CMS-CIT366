@@ -6,9 +6,9 @@
 
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="#" (click)="onSelect('Documents')">Documents</a></li>
-        <li><a href="#" (click)="onSelect('Messages')">Messages</a></li>
-        <li><a href="#" (click)="onSelect('Contacts')">Contacts</a></li>
+        <li routerLinkActive="active" routerLink="/documents"><a>Documents</a></li>
+        <li routerLinkActive="active" routerLink="/messages"><a>Messages</a></li>
+        <li routerLinkActive="active" routerLink="/contacts"><a>Contacts</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown" appDropdown>
