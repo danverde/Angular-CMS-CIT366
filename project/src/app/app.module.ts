@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app_routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +22,6 @@ import { MessageEditComponent } from './messages/message-edit/message-edit.compo
 import { MessageService } from './messages/message.service';
 import { DropdownDirective } from './directives/dropdown.directive';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +42,8 @@ import { DropdownDirective } from './directives/dropdown.directive';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [ContactService, DocumentService, MessageService],
   bootstrap: [AppComponent]
