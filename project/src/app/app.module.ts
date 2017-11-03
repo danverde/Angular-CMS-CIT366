@@ -1,3 +1,4 @@
+import { WindRefService } from './wind-ref.service';
 import { AppRoutingModule } from './app_routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -49,7 +50,7 @@ import { DropdownDirective } from './directives/dropdown.directive';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [ContactService, DocumentService, MessageService],
+  providers: [ContactService, DocumentService, MessageService, WindRefService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
