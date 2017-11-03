@@ -31,9 +31,12 @@ export class DocumentDetailComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.document = this.documentService.getDocument(this.id);
-      console.log(this.id);
-      console.log(this.document);
     });
+  }
+
+  onDelete() {
+    this.documentService.deleteDocument(this.document);
+    this.router.navigate(['/documents'], {relativeTo: this.route});
   }
 
 }
