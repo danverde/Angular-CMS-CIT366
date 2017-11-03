@@ -11,16 +11,19 @@ import { Contact } from '../contacts.model';
 
 export class ContactDetailComponent implements OnInit {
   contact: Contact;
-  // id: string;
   constructor(private contactService: ContactService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      // this.id = params['id'];
       this.contact = this.contactService.getContact(params['id']);
     });
+  }
+
+  onDelete() {
+    this.contactService.deleteContact(this.contact);
+    this.router.navigate(['/contacts'], {relativeTo: this.route});
   }
 
 }

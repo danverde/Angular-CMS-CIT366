@@ -12,7 +12,7 @@ export class DocumentService {
    }
 
    getDocuments() {
-      return this.documents.slice();
+      return [...this.documents];
    }
 
    getDocument(id: string) {
@@ -34,6 +34,6 @@ export class DocumentService {
         return;
     }
     this.documents.splice(pos, 1);
-    this.documentChangedEvent.emit(this.documents.slice());
+    this.documentChangedEvent.emit([...this.documents]);
    }
 }
