@@ -11,6 +11,7 @@ import { ContactListComponent } from './contacts/contact-list/contact-list.compo
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 import { ContactItemComponent } from './contacts/contact-item/contact-item.component';
 import { ContactService } from './contacts/contact.service';
+import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
 import { DocumentsComponent } from './documents/documents.component';
 import { DocumentListComponent } from './documents/document-list/document-list.component';
 import { DocumentItemComponent } from './documents/document-item/document-item.component';
@@ -33,6 +34,7 @@ import { DropdownDirective } from './directives/dropdown.directive';
     ContactListComponent,
     ContactDetailComponent,
     ContactItemComponent,
+    ContactEditComponent,
     DocumentsComponent,
     DocumentListComponent,
     DocumentItemComponent,
