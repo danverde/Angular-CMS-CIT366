@@ -5,8 +5,8 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class DocumentService {
-   documentSelectedEvent = new EventEmitter<Document>();
-   documentChangedEvent = new EventEmitter<Document[]>();
+   documentSelectedEvent = new EventEmitter<Document>(); // to be deleted
+   documentChangedEvent = new EventEmitter<Document[]>(); // to be deleted
    documentListChangedEvent = new Subject<Document[]>();
    documents: Document[] = [];
    maxDocumentId: number;
@@ -51,8 +51,22 @@ export class DocumentService {
     this.documentListChangedEvent.next([...this.documents]);
    }
 
+   updateDocument(originalDoc: Document, newDoc: Document) {
+    if (originalDoc === null || originalDoc === undefined || newDoc === null || newDoc === undefined) {
+        return;
+    }
+    const pos = this.documents.indexOf(originalDoc);
+    if (pos < 0) {
+        return;
+    }
+
+    newDoc.id = originalDoc.id;
+    this.documents[pos] = newDoc;
+    this.documentListChangedEvent.next([...this.documents]);
+   }
+
     deleteDocument(document: Document) {
-    if (document === null) {
+    if (document === null || document === undefined) {
         return;
     }
     const pos = this.documents.indexOf(document);
@@ -60,6 +74,6 @@ export class DocumentService {
         return;
     }
     this.documents.splice(pos, 1);
-    this.documentChangedEvent.emit([...this.documents]);
+    this.documentListChangedEvent.next([...this.documents]);
    }
 }
