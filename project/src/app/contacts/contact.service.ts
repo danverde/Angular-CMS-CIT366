@@ -5,7 +5,7 @@ import { MOCKCONTACTS } from './MOCKCONTACTS';
 @Injectable()
 export class ContactService {
    contactSelectedEvent = new EventEmitter<Contact>(); // to be deleted?
-   contactChangedEvent = new EventEmitter<Contact[]>(); // to be deleted?
+   // contactChangedEvent = new EventEmitter<Contact[]>(); // to be deleted?
    contactListChangedEvent = new Subject<Contact[]>();
    contacts: Contact[] = [];
     maxContactId: number;

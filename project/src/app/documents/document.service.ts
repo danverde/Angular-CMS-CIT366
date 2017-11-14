@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class DocumentService {
    documentSelectedEvent = new EventEmitter<Document>(); // to be deleted
-   documentChangedEvent = new EventEmitter<Document[]>(); // to be deleted
+   // documentChangedEvent = new EventEmitter<Document[]>(); // to be deleted
    documentListChangedEvent = new Subject<Document[]>();
    documents: Document[] = [];
    maxDocumentId: number;
