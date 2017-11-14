@@ -42,7 +42,7 @@ export class DocumentService {
    }
 
    addDocument (newDoc: Document) {
-    if (newDoc === undefined || newDoc === null){
+    if (newDoc === undefined || newDoc === null) {
         return;
     }
     this.maxDocumentId++;
