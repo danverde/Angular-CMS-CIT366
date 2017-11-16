@@ -14,7 +14,7 @@
             class="form-control"
             size="120"
             max="120"
-            [ngModel]=oldDoc?.name
+            [ngModel]=originalDocument?.name
             required>
         </div>
 
@@ -27,7 +27,7 @@
             class="form-control"
             size="120"
             max="255"
-            [ngModel]=oldDoc?.description>
+            [ngModel]=originalDocument?.description>
         </div>
 
         <div class="col-sm-12 form-group">
@@ -40,7 +40,7 @@
             class="form-control"
             size="150"
             max="255"
-            [ngModel]=oldDoc?.docUrl
+            [ngModel]=originalDocument?.url
             required>
         </div>
       </div>
