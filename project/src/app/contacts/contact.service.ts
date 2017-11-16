@@ -73,7 +73,6 @@ export class ContactService {
         return;
     }
     this.contacts.splice(pos, 1);
-    console.log([...this.contacts]);
     this.contactListChangedEvent.next([...this.contacts]);
    }
 }

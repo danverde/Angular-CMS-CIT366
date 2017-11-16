@@ -6,8 +6,8 @@
     <div class="panel-body">
         <ul class="list-group">
             <app-contact-item 
-                *ngFor="let contact of contacts"
-                [contact]="contact"></app-contact-item>
+                *ngFor="let contact of contacts" [contact]="contact"
+                dnd-draggable draggable="true" [dragData]="contact" [dropZones]="['contactGroup']"></app-contact-item>
         </ul>
     </div>
 </div>

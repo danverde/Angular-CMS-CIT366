@@ -25,6 +25,7 @@ import { MessageItemComponent } from './messages/message-item/message-item.compo
 import { MessageEditComponent } from './messages/message-edit/message-edit.component';
 import { MessageService } from './messages/message.service';
 import { DropdownDirective } from './directives/dropdown.directive';
+import { DndModule } from 'ng2-dnd';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { DropdownDirective } from './directives/dropdown.directive';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DndModule.forRoot()
   ],
   providers: [ContactService, DocumentService, MessageService, WindRefService],
   bootstrap: [AppComponent]
