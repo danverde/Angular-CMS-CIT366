@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <form id="contact-edit" (ngSubmit)="onSumbit(f)" #f="ngForm">
+    <form id="contact-edit" (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="name">Name</label>
@@ -13,7 +13,7 @@
             class="form-control required"
             size="120"
             max="120"
-            [ngModel]=contact?.name>
+            [ngModel]=originalContact?.name>
         </div>
 
         <div class="col-sm-12 form-group">
@@ -22,7 +22,7 @@
             #email="ngModel"
             required
             name="email"
-            [ngModel]=contact?.email
+            [ngModel]=originalContact?.email
             type="text"
             id="email"
             class="form-control required"
@@ -43,7 +43,7 @@
           <input
             #phone="ngModel"
             name="phone"
-            [ngModel]=contact?.phone
+            [ngModel]=originalContact?.phone
             type="text"
             id="phone"
             class="form-control invalid"
@@ -64,7 +64,7 @@
           <input
             #imageUrl="ngModel"
             name="imageUrl"
-            [ngModel]=contact?.imageUrl
+            [ngModel]=originalContact?.imageUrl
             type="text"
             id="imageUrl"
             class="form-control"
