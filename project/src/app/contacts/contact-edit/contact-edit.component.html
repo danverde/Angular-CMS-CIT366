@@ -1,47 +1,81 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <form id="contact-edit">
+    <form id="contact-edit" (ngSubmit)="onSumbit(f)" #f="ngForm">
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="name">Name</label>
           <input
+            #name="ngModel"
+            required
+            name="name"
             type="text"
             id="name"
             class="form-control required"
             size="120"
-            max="120">
+            max="120"
+            [ngModel]=contact?.name>
         </div>
 
         <div class="col-sm-12 form-group">
           <label for="email">Email</label>
           <input
+            #email="ngModel"
+            required
+            name="email"
+            [ngModel]=contact?.email
             type="text"
             id="email"
             class="form-control required"
             size="120"
-            max="255">
-        </div>
+            max="255"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+            
+            <div class="alert alert-danger"
+            *ngIf="email.dirty && email.invalid">
+            Please enter a vaild email address
+            </div>
+          </div>
+
+        
 
         <div class="col-sm-12 form-group">
           <label for="phone">Phone</label>
           <input
+            #phone="ngModel"
+            name="phone"
+            [ngModel]=contact?.phone
             type="text"
             id="phone"
             class="form-control invalid"
             size="150"
-            max="255">
-
+            max="255"
+            pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*">
+            
+            <div class="alert alert-danger"
+            *ngIf="phone.dirty && phone.invalid">
+            Please enter a vaild phone number
+            </div>
         </div>
+
+        
 
         <div class="col-sm-12 form-group">
           <label for="imageUrl">Image URL</label>
           <input
+            #imageUrl="ngModel"
+            name="imageUrl"
+            [ngModel]=contact?.imageUrl
             type="text"
             id="imageUrl"
             class="form-control"
             size="150"
             max="255">
         </div>
+      </div>
+
+      <div class="alert alert-danger"
+      *ngIf="(name.touched && name.invalid) || (email.touched && email.invalid)">
+        The Name and Email are required Fields
       </div>
 
       <div class="form-group">
@@ -64,7 +98,7 @@
 
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-success" type="submit">Save</button>
+          <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save</button>
           <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
         </div>
       </div>
