@@ -15,6 +15,10 @@ export class ContactListComponent implements OnInit, OnDestroy {
   constructor(private contactService: ContactService) {
   }
 
+  onKeyPress(value: string) {
+    console.log('keypress caught');
+  }
+
   ngOnInit() {
     this.contacts = this.contactService.getContacts();
     this.subscription = this.contactService.contactListChangedEvent
