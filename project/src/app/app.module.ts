@@ -3,6 +3,7 @@ import { AppRoutingModule } from './app_routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/Http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header.component';
@@ -51,6 +52,7 @@ import { DndModule } from 'ng2-dnd';
     DocumentViewComponent
   ],
   imports: [
+    HttpModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,

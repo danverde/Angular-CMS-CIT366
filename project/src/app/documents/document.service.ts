@@ -2,6 +2,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Document } from './document.model';
 import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 import { Subject } from 'rxjs/Subject';
+import { Http, Response } from '@angular/Http';
+import 'rxjs/Rx';
 
 @Injectable()
 export class DocumentService {
@@ -11,9 +13,28 @@ export class DocumentService {
    documents: Document[] = [];
    maxDocumentId: number;
 
-   constructor() {
-      this.documents = MOCKDOCUMENTS;
-      this.maxDocumentId = this.getMaxId();
+   constructor(private http: Http) {
+       this.initDocuments();
+   }
+
+   initDocuments() {
+       this.http.get('https://cit-366.firebaseio.com/documents.json')
+       .map((response: Response) => {
+           const docs: Document[] = response.json();
+           return docs;
+       }).subscribe((documents: Document[]) => {
+        this.documents = documents;
+        this.maxDocumentId = this.getMaxId();
+        this.documentListChangedEvent.next([...this.documents]);
+       });
+   }
+
+   storeDocuments() {
+       const docs = JSON.stringify(this.documents);
+       this.http.put('https://cit-366.firebaseio.com/documents.json', docs)
+       .subscribe(() => {
+           this.documentListChangedEvent.next([...this.documents]);
+       });
    }
 
    getDocuments() {
@@ -48,7 +69,7 @@ export class DocumentService {
     this.maxDocumentId++;
     newDoc.id = this.maxDocumentId.toString();
     this.documents.push(newDoc);
-    this.documentListChangedEvent.next([...this.documents]);
+    this.storeDocuments();
    }
 
    updateDocument(originalDoc: Document, newDoc: Document) {
@@ -62,7 +83,7 @@ export class DocumentService {
 
     newDoc.id = originalDoc.id;
     this.documents[pos] = newDoc;
-    this.documentListChangedEvent.next([...this.documents]);
+    this.storeDocuments();
    }
 
     deleteDocument(document: Document) {
@@ -74,6 +95,6 @@ export class DocumentService {
         return;
     }
     this.documents.splice(pos, 1);
-    this.documentListChangedEvent.next([...this.documents]);
+    this.storeDocuments();
    }
 }
