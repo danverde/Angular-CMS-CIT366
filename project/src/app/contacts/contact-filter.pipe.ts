@@ -10,11 +10,11 @@ export class ContactFilterPipe implements PipeTransform {
     let filteredArray: Contact[] = [];
 
     filteredArray = contacts.filter((contact) => {
-      contact.name.toLowerCase().includes(term.toLowerCase())
+      return contact.name.toLowerCase().includes(term.toLowerCase());
     });
 
     if (filteredArray.length < 1) {
-      return contacts;
+      return [...contacts];
     }
 
     return filteredArray;

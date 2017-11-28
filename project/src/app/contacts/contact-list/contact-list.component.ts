@@ -11,12 +11,13 @@ import { Subscription } from 'rxjs/Subscription';
 export class ContactListComponent implements OnInit, OnDestroy {
   contacts: Contact[];
   private subscription: Subscription;
+  term: String = '';
 
   constructor(private contactService: ContactService) {
   }
 
   onKeyPress(value: string) {
-    console.log('keypress caught');
+    this.term = value;
   }
 
   ngOnInit() {
