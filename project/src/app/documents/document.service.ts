@@ -1,6 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Document } from './document.model';
-import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 import { Subject } from 'rxjs/Subject';
 import { Http, Response } from '@angular/Http';
 import 'rxjs/Rx';
@@ -8,7 +7,6 @@ import 'rxjs/Rx';
 @Injectable()
 export class DocumentService {
    documentSelectedEvent = new EventEmitter<Document>(); // to be deleted
-   // documentChangedEvent = new EventEmitter<Document[]>(); // to be deleted
    documentListChangedEvent = new Subject<Document[]>();
    documents: Document[] = [];
    maxDocumentId: number;
