@@ -1,3 +1,4 @@
+import { ContactService } from './contacts/contact.service';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -6,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'This is my title!';
+  constructor(private contactService: ContactService) {}
 }
