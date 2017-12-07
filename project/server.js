@@ -10,7 +10,11 @@ var mongoose = require('mongoose');
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app');
 
-// ... ADD CODE TO IMPORT YOUR ROUTING FILES HERE ... 
+// Get defined routing files
+const messageRoutes = require('./server/routes/message'),
+      contactRoutes = require('server/routes/contacts'),
+      documentRoutes = require('server/routes/documents');
+
 
 // establish a connection to the mongo database
 // *** Important *** change yourPort and yourDatabase
@@ -34,6 +38,12 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/', index);
 
 // ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
+app.use('/', index);
+app.use('/mesages', messageRoutes);
+app.use('/contacts', contactRoutes);
+app.use('/documents', documentRoutes);
+
+
 
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {
