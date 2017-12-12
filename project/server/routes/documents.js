@@ -4,20 +4,20 @@ import { request } from 'https'; */
 const express = require('express');
 const router = express.Router();
 const documentModel = require('../models/documents');
+// const sequenceGenerator = require('./sequenceGenerator');
 
 
 function getDocuments(request, response) {
   documentModel.find()
-  .exec((err, docs) => {
+    .exec((err, docs) => {
       if (err) {
-            return response.status(500).json({
-              title: 'No Document Found',
-              error: err
-            });
-          } 
-            response.status(200).json(docs);
-          
-  })
+        return response.status(500).json({
+          title: 'No Document Found',
+          error: err
+        });
+      }
+      response.status(200).json(docs);
+    });
 }
 
 function saveDocument(response, document) {
@@ -31,22 +31,35 @@ function saveDocument(response, document) {
       });
     }
     // call getDocuments to get and return modified doc list...
-    return getDocuments();
+    //return getDocuments();
   });
 }
 
-function deleteDocument(result, doc) {
-  documentModel.remove((err, res) => {
+function deleteDocument(response, doc) {
+  documentModel.remove({
+    id: doc.id
+  }, (err, result) => {
     if (err) {
-      return result.status(500).json({
+      return response.status(500).json({
         title: 'An error occured',
         error: err
       });
+    } else {
+      documentModel.find()
+        .exec((err, docs) => {
+          if (err) {
+            return response.status(500).json({
+              title: 'Unable to get document List',
+              error: err
+            });
+          } else {
+            response.status(200).json({
+              message: 'Deleted Document',
+              obj: docs
+            });
+          }
+        })
     }
-    result.status(200).json({
-      message: 'Deleted Document',
-      obj: result
-    });
   });
 }
 
@@ -56,6 +69,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+  console.log('router.post called');
   var maxDocumentId = sequenceGenerator.nextId('documents');
   var document = new Document({
     id: maxDocumentId,
@@ -68,6 +82,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.patch('/:id', (req, res, next) => {
+  console.log('router.patch called');
   documentModel.findOne({
     id: req.params.id
   }, (err, doc) => {
@@ -108,7 +123,6 @@ router.delete('/:id', (req, res, next) => {
         }
       });
     }
-
     deleteDocument(res, doc);
   });
 });

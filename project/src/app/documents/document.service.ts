@@ -21,20 +21,19 @@ export class DocumentService {
            const docs: Document[] = response.json();
            return docs;
        }).subscribe((documents: Document[]) => {
-        // console.log('docs:', documents);
         this.documents = documents;
         this.maxDocumentId = this.getMaxId();
         this.documentListChangedEvent.next([...this.documents]);
        });
    }
 
-   storeDocuments() {
+   /* storeDocuments() {
        const docs = JSON.stringify(this.documents);
        this.http.put('http://localhost:3000/documents', docs)
        .subscribe(() => {
            this.documentListChangedEvent.next([...this.documents]);
        });
-   }
+   } */
 
    getDocuments() {
       return [...this.documents];
@@ -62,17 +61,25 @@ export class DocumentService {
    }
 
    addDocument (newDoc: Document) {
-    if (newDoc === undefined || newDoc === null) {
+    if (!newDoc) {
         return;
     }
-    this.maxDocumentId++;
-    newDoc.id = this.maxDocumentId.toString();
-    this.documents.push(newDoc);
-    this.storeDocuments();
+
+    newDoc.id = '';
+    const strDoc = JSON.stringify(newDoc);
+
+    this.http.post('http:/localhost:3000/documents', strDoc)
+    .map((res) => {
+        return res.json().obj;
+    })
+    .subscribe((documents: Document[]) => {
+        this.documents = documents;
+        this.documentListChangedEvent.next([...this.documents]);
+    });
    }
 
    updateDocument(originalDoc: Document, newDoc: Document) {
-    if (originalDoc === null || originalDoc === undefined || newDoc === null || newDoc === undefined) {
+    if (!originalDoc || !newDoc) {
         return;
     }
     const pos = this.documents.indexOf(originalDoc);
@@ -80,20 +87,27 @@ export class DocumentService {
         return;
     }
 
-    newDoc.id = originalDoc.id;
-    this.documents[pos] = newDoc;
-    this.storeDocuments();
-   }
+    const strDoc = JSON.stringify(newDoc);
+    this.http.patch(`http://localhost:3000/documents/${originalDoc.id}`, strDoc)
+    .map((res: Response) => {
+        return res.json().obj;
+    })
+    .subscribe((documents: Document[]) => {
+        this.documents = documents;
+        this.documentListChangedEvent.next([...this.documents]);
+    });
+}
 
-    deleteDocument(document: Document) {
-    if (document === null || document === undefined) {
+deleteDocument(document: Document) {
+    if (!document) {
         return;
     }
-    const pos = this.documents.indexOf(document);
-    if (pos < 0) {
-        return;
-    }
-    this.documents.splice(pos, 1);
-    this.storeDocuments();
+    this.http.delete(`http://localhost:3000/documents/${document.id}`)
+    .map((res) => {
+        return res.json().obj;
+    }).subscribe((documents: Document[]) => {
+        this.documents = documents;
+        this.documentListChangedEvent.next([...this.documents]);
+    });
    }
 }
