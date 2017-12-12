@@ -12,8 +12,8 @@ var index = require('./server/routes/app');
 
 // Get defined routing files
 const messageRoutes = require('./server/routes/message'),
-      contactRoutes = require('server/routes/contacts'),
-      documentRoutes = require('server/routes/documents');
+      contactRoutes = require('./server/routes/contacts'),
+      documentRoutes = require('./server/routes/documents');
 
 
 // establish a connection to the mongo database
@@ -39,8 +39,8 @@ app.use('/', index);
 
 // ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
 app.use('/', index);
-app.use('/mesages', messageRoutes);
-app.use('/contacts', contactRoutes);
+//app.use('/mesages', messageRoutes);
+//app.use('/contacts', contactRoutes);
 app.use('/documents', documentRoutes);
 
 

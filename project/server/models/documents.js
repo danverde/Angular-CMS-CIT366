@@ -1,11 +1,10 @@
 const mongoose = require('mongoose'),
-  Schema = moongose.Schema;
-  
+  Schema = mongoose.Schema;
+
 var documentSchema = new Schema({
    id: {type: String, required: true},
    name: {type: String, required: true},
    url: {type: String, required: true},
-   children: {type: Array},
    description: {type: String},
 });
 

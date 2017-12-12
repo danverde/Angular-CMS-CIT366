@@ -16,11 +16,12 @@ export class DocumentService {
    }
 
    initDocuments() {
-       this.http.get('https://cit-366.firebaseio.com/documents.json')
+       this.http.get('http://localhost:3000/documents')
        .map((response: Response) => {
            const docs: Document[] = response.json();
            return docs;
        }).subscribe((documents: Document[]) => {
+        // console.log('docs:', documents);
         this.documents = documents;
         this.maxDocumentId = this.getMaxId();
         this.documentListChangedEvent.next([...this.documents]);
@@ -29,7 +30,7 @@ export class DocumentService {
 
    storeDocuments() {
        const docs = JSON.stringify(this.documents);
-       this.http.put('https://cit-366.firebaseio.com/documents.json', docs)
+       this.http.put('http://localhost:3000/documents', docs)
        .subscribe(() => {
            this.documentListChangedEvent.next([...this.documents]);
        });
