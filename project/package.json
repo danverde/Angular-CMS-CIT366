@@ -27,7 +27,7 @@
     "core-js": "^2.4.1",
     "expres": "0.0.5",
     "express": "^4.16.2",
-    "mongoose": "^4.13.6",
+    "mongoose": "^4.13.7",
     "mongoose-unique-validator": "^1.0.6",
     "morgan": "^1.9.0",
     "ng2-dnd": "^4.2.0",

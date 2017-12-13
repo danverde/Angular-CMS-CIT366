@@ -24,8 +24,8 @@ mongoose.connect('localhost:27017/cms');
 var app = express(); // create an instance of express
 
 // Tell express to use the following parsers for POST data
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(logger('dev')); // Tell express to use the Morgan logger
