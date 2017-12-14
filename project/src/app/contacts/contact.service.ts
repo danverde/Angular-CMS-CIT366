@@ -18,7 +18,7 @@ export class ContactService {
   }
 
   initContacts() {
-    this.http.get('https://cit-366.firebaseio.com/contacts.json')
+    this.http.get('http://localhost:3000/contacts')
     .map((response: Response) => {
         const contacts: Contact[] = response.json();
         return contacts;
@@ -66,10 +66,25 @@ export class ContactService {
     if (newContact === undefined || newContact === null) {
         return;
     }
-    this.maxContactId++;
+    /* this.maxContactId++;
     newContact.id = this.maxContactId.toString();
     this.contacts.push(newContact);
-    this.storeContacts();
+    this.storeContacts(); */
+    newContact.id = '';
+    const strContact = JSON.stringify(newContact);
+
+    const headers = new Headers ({
+        'Content-Type': 'application/json'
+    });
+
+    this.http.post('http://localhost:3000/contacts', strContact, {headers: headers})
+    .map((res) => {
+        return res.json().obj;
+    })
+    .subscribe((contacts: Contact[]) => {
+        this.contacts = contacts;
+    });
+
    }
 
    updateContact(originalContact: Contact, newDoc: Contact) {

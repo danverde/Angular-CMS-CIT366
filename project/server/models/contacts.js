@@ -1,10 +1,10 @@
 const mongoose = require('mongoose'),
-  Schema = moongose.Schema;
+  Schema = mongoose.Schema;
 
 var contactSchema = new Schema({
    id: {type: String, required: true},
    name: {type: String, required: true},
-   emil: {type: String, required: true},
+   email: {type: String, required: true},
    phone: {type: String},
    imageUrl: {type: String},
    group: {type: Array},

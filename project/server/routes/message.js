@@ -54,11 +54,9 @@ router.post('/', function (req, res, next) {
   var maxMessageId = sequenceGenerator.nextId('messages');
   var message = new messageModel({
     id: maxMessageId,
-    name: req.body.name,
-    email: req.body.email,
-    phone: req.body.phone,
-    imageUrl: req.body.imageUrl,
-    group: req.body.group
+    subject: req.body.subject,
+    msgText: req.body.msgText,
+    sender: req.body.sender,
   });
 
   saveMessage(res, message);

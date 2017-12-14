@@ -40,7 +40,7 @@ app.use('/', index);
 // ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
 app.use('/', index);
 app.use('/messages', messageRoutes);
-//app.use('/contacts', contactRoutes);
+app.use('/contacts', contactRoutes);
 app.use('/documents', documentRoutes);
 
 

@@ -25,14 +25,6 @@ export class MessageService {
       });
    }
 
-   /* storeMessages() {
-      const msgs = JSON.stringify(this.messages);
-      this.http.put('https://cit-366.firebaseio.com/messages.json', msgs)
-      .subscribe(() => {
-          this.messageChangeEvent.next([...this.messages]);
-      });
-   } */
-
    getMessages() {
       return this.messages;
    }
@@ -59,8 +51,6 @@ export class MessageService {
    }
 
    addMessage(message: Message) {
-    //   this.messages.push(message);
-
       const strMsg =  JSON.stringify(message);
       const headers = new Headers({
         'Content-Type': 'application/json'
@@ -72,6 +62,7 @@ export class MessageService {
       })
       .subscribe((messages: Message[]) => {
           this.messages = messages;
+          this.initMessages();
       });
    }
 }
