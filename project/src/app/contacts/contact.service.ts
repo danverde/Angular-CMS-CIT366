@@ -1,4 +1,4 @@
-import { Http, Response } from '@angular/Http';
+import { Http, Response, Headers } from '@angular/Http';
 import { Subject } from 'rxjs/Subject';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Contact } from './contacts.model';
@@ -14,7 +14,6 @@ export class ContactService {
 
   constructor(private http: Http) {
     this.initContacts();
-    // this.contacts = MOCKCONTACTS;
     this.maxContactId = this.getMaxId();
   }
 

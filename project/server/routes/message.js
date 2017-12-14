@@ -1,0 +1,70 @@
+const express = require('express');
+const router = express.Router();
+const messageModel = require('../models/messages');
+const sequenceGenerator = require('./sequenceGenerator');
+
+
+function getMessages(request, response) {
+  messageModel.find()
+    .exec((err, messages) => {
+      if (err) {
+         console.log(err);
+        return response.status(500).json({
+          title: 'No Message Found',
+          error: err
+        });
+      }
+      console.log(messages);
+      response.status(200).json(messages);
+    });
+}
+
+function saveMessage(response, message) {
+  message.save((err, res) => {
+    if (err) {
+      return response.status(500).json({
+        title: 'Could not save messages',
+        error: {
+          message: err
+        }
+      });
+    } else {
+      messageModel.find()
+        .exec((err, msg) => {
+          if (err) {
+            return response.status(500).json({
+              title: 'Unable to get message List',
+              error: err
+            });
+          } else {
+            response.status(200).json({
+              message: 'Deleted Message',
+              obj: msg
+            });
+          };
+        });
+    }
+  });
+};
+
+
+router.get('/', function (req, res, next) {
+   console.log("router.get called");
+  getMessages(req, res);
+});
+
+router.post('/', function (req, res, next) {
+  var maxMessageId = sequenceGenerator.nextId('messages');
+  var message = new messageModel({
+    id: maxMessageId,
+    name: req.body.name,
+    email: req.body.email,
+    phone: req.body.phone,
+    imageUrl: req.body.imageUrl,
+    group: req.body.group
+  });
+
+  saveMessage(res, message);
+});
+
+module.exports = router;

@@ -1,4 +1,4 @@
-import { Http, Response } from '@angular/Http';
+import { Http, Response, Headers } from '@angular/Http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Message } from './message.model';
 import 'rxjs/Rx';
@@ -14,7 +14,7 @@ export class MessageService {
    }
 
    initMessages() {
-      this.http.get('https://cit-366.firebaseio.com/messages.json')
+      this.http.get('http://localhost:3000/messages')
       .map((response: Response) => {
           const msgs: Message[] = response.json();
           return msgs;
@@ -25,13 +25,13 @@ export class MessageService {
       });
    }
 
-   storeMessages() {
+   /* storeMessages() {
       const msgs = JSON.stringify(this.messages);
       this.http.put('https://cit-366.firebaseio.com/messages.json', msgs)
       .subscribe(() => {
           this.messageChangeEvent.next([...this.messages]);
       });
-   }
+   } */
 
    getMessages() {
       return this.messages;
@@ -59,8 +59,19 @@ export class MessageService {
    }
 
    addMessage(message: Message) {
-      this.messages.push(message);
-      // this.messageChangeEvent.emit(this.messages.slice());
-      this.storeMessages();
+    //   this.messages.push(message);
+
+      const strMsg =  JSON.stringify(message);
+      const headers = new Headers({
+        'Content-Type': 'application/json'
+      });
+
+      this.http.post('/messages', strMsg, {headers: headers})
+      .map((res) => {
+          return res.json().obj;
+      })
+      .subscribe((messages: Message[]) => {
+          this.messages = messages;
+      });
    }
 }

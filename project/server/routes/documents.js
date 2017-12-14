@@ -1,6 +1,3 @@
-/* import { createFunctionTypeNode } from 'typescript';
-import { request } from 'https'; */
-
 const express = require('express');
 const router = express.Router();
 const documentModel = require('../models/documents');
