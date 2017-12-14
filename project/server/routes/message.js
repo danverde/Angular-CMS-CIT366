@@ -8,13 +8,11 @@ function getMessages(request, response) {
   messageModel.find()
     .exec((err, messages) => {
       if (err) {
-         console.log(err);
         return response.status(500).json({
           title: 'No Message Found',
           error: err
         });
       }
-      console.log(messages);
       response.status(200).json(messages);
     });
 }
@@ -49,7 +47,6 @@ function saveMessage(response, message) {
 
 
 router.get('/', function (req, res, next) {
-   console.log("router.get called");
   getMessages(req, res);
 });
 

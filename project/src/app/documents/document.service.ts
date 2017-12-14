@@ -27,14 +27,6 @@ export class DocumentService {
        });
    }
 
-   /* storeDocuments() {
-       const docs = JSON.stringify(this.documents);
-       this.http.put('http://localhost:3000/documents', docs)
-       .subscribe(() => {
-           this.documentListChangedEvent.next([...this.documents]);
-       });
-   } */
-
    getDocuments() {
       return [...this.documents];
    }
