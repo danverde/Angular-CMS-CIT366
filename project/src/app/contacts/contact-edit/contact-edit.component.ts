@@ -43,7 +43,6 @@ export class ContactEditComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     const values = form.value;
-    console.log(form.value);
     const newContact = new Contact(null, values.name, values.email, values.phone, values.imageUrl, this.groupContacts);
 
     if (this.editMode === true) {
@@ -60,8 +59,10 @@ export class ContactEditComponent implements OnInit {
   }
 
   isInvalidContact(newContact: Contact) {
-    console.log('isInvalidContact Called');
     let isInvalid = false;
+    if (this.editMode === false) {
+      return true;
+    }
     if (!newContact || newContact.id === this.contact.id) {
       isInvalid = true;
     }
@@ -76,7 +77,6 @@ export class ContactEditComponent implements OnInit {
   }
 
   addToGroup($event: any) {
-    console.log('addToGroup Called');
     const selectedContact: Contact = $event.dragData;
     this.invalidGroupContact = this.isInvalidContact(selectedContact);
     if (this.invalidGroupContact) {
@@ -87,7 +87,6 @@ export class ContactEditComponent implements OnInit {
   }
 
   onRemoveItem (idx: number) {
-    console.log('onRemoveItem called');
     if (idx < 0 || idx >= this.groupContacts.length) {
       return;
     }
