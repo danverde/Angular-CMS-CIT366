@@ -88,7 +88,7 @@ export class DocumentService {
     });
 
     const strDoc = JSON.stringify(newDoc);
-    this.http.patch('http://localhost:3000/documents/' + originalDoc.id, strDoc, {headers: headers})
+    this.http.patch(`http://localhost:3000/documents/${originalDoc.id}`, strDoc, {headers: headers})
     .map((res: Response) => {
         return res.json().obj;
     })

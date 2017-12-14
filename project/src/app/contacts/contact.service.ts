@@ -29,14 +29,6 @@ export class ContactService {
         });
     }
 
-    storeContacts() {
-        const contacts = JSON.stringify(this.contacts);
-        this.http.put('https://cit-366.firebaseio.com/contacts.json', contacts)
-        .subscribe(() => {
-            this.contactListChangedEvent.next([...this.contacts]);
-        });
-    }
-
    getContacts() {
       return [...this.contacts];
    }
@@ -83,12 +75,13 @@ export class ContactService {
     })
     .subscribe((contacts: Contact[]) => {
         this.contacts = contacts;
+        this.initContacts();
     });
 
    }
 
-   updateContact(originalContact: Contact, newDoc: Contact) {
-    if (originalContact === null || originalContact === undefined || newDoc === null || newDoc === undefined) {
+   updateContact(originalContact: Contact, newContact: Contact) {
+    if (!originalContact || !newContact) {
         return;
     }
     const pos = this.contacts.indexOf(originalContact);
@@ -96,20 +89,40 @@ export class ContactService {
         return;
     }
 
-    newDoc.id = originalContact.id;
-    this.contacts[pos] = newDoc;
-    this.storeContacts();
+    newContact.id = originalContact.id;
+    this.contacts[pos] = newContact;
+
+    const strContact = JSON.stringify(newContact);
+    const headers = new Headers ({
+        'Content-Type': 'application/json'
+    });
+
+    this.http.patch(`http://localhost:3000/contacts/${newContact.id}`, strContact, {headers: headers})
+    .map((res) => {
+        return res.json().obj;
+    })
+    .subscribe((contacts: Contact[]) => {
+        this.contacts = contacts;
+        this.initContacts();
+    });
    }
 
    deleteContact(contact: Contact) {
-    if (contact === null) {
+    if (!contact) {
         return;
     }
     const pos = this.contacts.indexOf(contact);
     if (pos < 0) {
         return;
     }
-    this.contacts.splice(pos, 1);
-    this.storeContacts();
+
+    this.http.delete(`http://localhost:3000/contacts/${contact.id}`)
+    .map((res) => {
+        return res.json().obj;
+    })
+    .subscribe((contacts: Contact[]) => {
+        this.contacts = contacts;
+        this.contactListChangedEvent.next([...this.contacts])
+    });
    }
 }

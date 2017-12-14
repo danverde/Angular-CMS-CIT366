@@ -6,6 +6,7 @@ const sequenceGenerator = require('./sequenceGenerator');
 
 function getContacts(request, response) {
   contactModel.find()
+    .populate('group')
     .exec((err, contacts) => {
       if (err) {
         return response.status(500).json({
@@ -18,7 +19,14 @@ function getContacts(request, response) {
 }
 
 function saveContact(response, contact) {
+  if (contact.group && contact.group.length > 0) {
+    for (let groupContact of contact.group) {
+      groupContact = groupContact._id;
+    }
+  }
+
   contact.save((err, res) => {
+    response.setHeader('Content-Type', 'application/json');
     if (err) {
       return response.status(500).json({
         title: 'Could not save contacts',
@@ -93,7 +101,9 @@ router.post('/', function (req, res, next) {
 });
 
 router.patch('/:id', (req, res, next) => {
-  contactModel.findOne({id: req.params.id}, (err, contact) => {
+  contactModel.findOne({
+    id: req.params.id
+  }, (err, contact) => {
     if (err || !contact) {
       return res.status(500).json({
         title: 'No Contact Found',
