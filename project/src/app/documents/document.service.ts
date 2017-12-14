@@ -68,7 +68,11 @@ export class DocumentService {
     newDoc.id = '';
     const strDoc = JSON.stringify(newDoc);
 
-    this.http.post('/documents', strDoc)
+    const headers = new Headers ({
+        'Content-Type': 'application/json'
+    });
+
+    this.http.post('/documents', strDoc, {headers: headers})
     .map((res) => {
         return res.json().obj;
     })
