@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Document } from './document.model';
 import { Subject } from 'rxjs/Subject';
-import { Http, Response } from '@angular/Http';
+import { Http, Response, Headers } from '@angular/Http';
 import 'rxjs/Rx';
 
 @Injectable()
@@ -68,7 +68,7 @@ export class DocumentService {
     newDoc.id = '';
     const strDoc = JSON.stringify(newDoc);
 
-    this.http.post('http:/localhost:3000/documents', strDoc)
+    this.http.post('/documents', strDoc)
     .map((res) => {
         return res.json().obj;
     })
@@ -87,8 +87,12 @@ export class DocumentService {
         return;
     }
 
+    const headers = new Headers ({
+        'Content-Type': 'application/json'
+    });
+
     const strDoc = JSON.stringify(newDoc);
-    this.http.patch(`http://localhost:3000/documents/${originalDoc.id}`, strDoc)
+    this.http.patch('http://localhost:3000/documents/' + originalDoc.id, strDoc, {headers: headers})
     .map((res: Response) => {
         return res.json().obj;
     })

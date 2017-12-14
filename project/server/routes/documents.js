@@ -4,6 +4,7 @@ import { request } from 'https'; */
 const express = require('express');
 const router = express.Router();
 const documentModel = require('../models/documents');
+const sequenceGenerator = require('./sequenceGenerator');
 
 
 function getDocuments(request, response) {
@@ -81,7 +82,6 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  console.log('router.post called');
   var maxDocumentId = sequenceGenerator.nextId('documents');
   var document = new documentModel({
     id: maxDocumentId,
@@ -94,9 +94,6 @@ router.post('/', function (req, res, next) {
 });
 
 router.patch('/:id', (req, res, next) => {
-  console.log('req.body', req.body);
-  console.log('req.params', req.params);
-
   documentModel.findOne({id: req.params.id}, (err, doc) => {
     if (err || !doc) {
       return res.status(500).json({
@@ -109,8 +106,6 @@ router.patch('/:id', (req, res, next) => {
       doc.name = req.body.name;
       doc.description = req.body.description;
       doc.url = req.body.url;
-
-      console.log('doc:', doc);
 
       saveDocument(res, doc);
     }
